@@ -22,6 +22,11 @@
 		DDC7AF0D1830C3CE00BA3A71 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC7AEEC1830C3CE00BA3A71 /* UIKit.framework */; };
 		DDC7AF151830C3CE00BA3A71 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDC7AF131830C3CE00BA3A71 /* InfoPlist.strings */; };
 		DDC7AF171830C3CE00BA3A71 /* BackgroundDownloadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC7AF161830C3CE00BA3A71 /* BackgroundDownloadTests.m */; };
+		DDC7AF281830DB0F00BA3A71 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC7AF271830DB0F00BA3A71 /* CFNetwork.framework */; };
+		DDC7AF2B1830DB2300BA3A71 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC7AF291830DB2300BA3A71 /* CoreFoundation.framework */; };
+		DDC7AF2C1830DB2300BA3A71 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC7AF2A1830DB2300BA3A71 /* CoreTelephony.framework */; };
+		DDC7AF2E1830DB2A00BA3A71 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC7AF2D1830DB2A00BA3A71 /* SystemConfiguration.framework */; };
+		DDC7AF321830DBEA00BA3A71 /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = DDC7AF311830DBEA00BA3A71 /* PushConfig.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +60,12 @@
 		DDC7AF121830C3CE00BA3A71 /* BackgroundDownloadTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BackgroundDownloadTests-Info.plist"; sourceTree = "<group>"; };
 		DDC7AF141830C3CE00BA3A71 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDC7AF161830C3CE00BA3A71 /* BackgroundDownloadTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BackgroundDownloadTests.m; sourceTree = "<group>"; };
+		DDC7AF201830D65A00BA3A71 /* BackgroundDownload.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BackgroundDownload.entitlements; sourceTree = "<group>"; };
+		DDC7AF271830DB0F00BA3A71 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		DDC7AF291830DB2300BA3A71 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		DDC7AF2A1830DB2300BA3A71 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		DDC7AF2D1830DB2A00BA3A71 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		DDC7AF311830DBEA00BA3A71 /* PushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PushConfig.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +73,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDC7AF2E1830DB2A00BA3A71 /* SystemConfiguration.framework in Frameworks */,
+				DDC7AF2B1830DB2300BA3A71 /* CoreFoundation.framework in Frameworks */,
+				DDC7AF2C1830DB2300BA3A71 /* CoreTelephony.framework in Frameworks */,
 				DDC7AEEB1830C3CE00BA3A71 /* CoreGraphics.framework in Frameworks */,
+				DDC7AF281830DB0F00BA3A71 /* CFNetwork.framework in Frameworks */,
 				DDC7AEED1830C3CE00BA3A71 /* UIKit.framework in Frameworks */,
 				DDC7AEE91830C3CE00BA3A71 /* Foundation.framework in Frameworks */,
 			);
@@ -103,6 +118,10 @@
 		DDC7AEE71830C3CD00BA3A71 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DDC7AF2D1830DB2A00BA3A71 /* SystemConfiguration.framework */,
+				DDC7AF291830DB2300BA3A71 /* CoreFoundation.framework */,
+				DDC7AF2A1830DB2300BA3A71 /* CoreTelephony.framework */,
+				DDC7AF271830DB0F00BA3A71 /* CFNetwork.framework */,
 				DDC7AEE81830C3CE00BA3A71 /* Foundation.framework */,
 				DDC7AEEA1830C3CE00BA3A71 /* CoreGraphics.framework */,
 				DDC7AEEC1830C3CE00BA3A71 /* UIKit.framework */,
@@ -114,6 +133,7 @@
 		DDC7AEEE1830C3CE00BA3A71 /* BackgroundDownload */ = {
 			isa = PBXGroup;
 			children = (
+				DDC7AF201830D65A00BA3A71 /* BackgroundDownload.entitlements */,
 				DDC7AEF71830C3CE00BA3A71 /* AppDelegate.h */,
 				DDC7AEF81830C3CE00BA3A71 /* AppDelegate.m */,
 				DDC7AEFA1830C3CE00BA3A71 /* Main_iPhone.storyboard */,
@@ -129,6 +149,7 @@
 		DDC7AEEF1830C3CE00BA3A71 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DDC7AF311830DBEA00BA3A71 /* PushConfig.plist */,
 				DDC7AEF01830C3CE00BA3A71 /* BackgroundDownload-Info.plist */,
 				DDC7AEF11830C3CE00BA3A71 /* InfoPlist.strings */,
 				DDC7AEF41830C3CE00BA3A71 /* main.m */,
@@ -202,6 +223,16 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = zhao;
 				TargetAttributes = {
+					DDC7AEE41830C3CD00BA3A71 = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
+					};
 					DDC7AF081830C3CE00BA3A71 = {
 						TestTargetID = DDC7AEE41830C3CD00BA3A71;
 					};
@@ -235,6 +266,7 @@
 				DDC7AF041830C3CE00BA3A71 /* Images.xcassets in Resources */,
 				DDC7AEFC1830C3CE00BA3A71 /* Main_iPhone.storyboard in Resources */,
 				DDC7AEF31830C3CE00BA3A71 /* InfoPlist.strings in Resources */,
+				DDC7AF321830DBEA00BA3A71 /* PushConfig.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,6 +427,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BackgroundDownload/BackgroundDownload-Prefix.pch";
 				INFOPLIST_FILE = "BackgroundDownload/BackgroundDownload-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/chenyu/Desktop/ios7BackgroundDownload/BackgroundDownload/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -408,6 +444,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BackgroundDownload/BackgroundDownload-Prefix.pch";
 				INFOPLIST_FILE = "BackgroundDownload/BackgroundDownload-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/chenyu/Desktop/ios7BackgroundDownload/BackgroundDownload/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

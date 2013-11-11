@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "APService.h"
 
 typedef void(^CompletionType)();
 @implementation AppDelegate
@@ -85,7 +84,6 @@ expectedTotalBytes:(int64_t)expectedTotalBytes
     self.completionHandlerDictionary = [[NSMutableDictionary alloc]init];
     [self.window makeKeyAndVisible];
     [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeAlert];
-    [APService setupWithOption:launchOptions];
     return YES;
 }
 //收到远程通知
@@ -99,9 +97,13 @@ expectedTotalBytes:(int64_t)expectedTotalBytes
     completionHandler(UIBackgroundFetchResultNewData);
 }
 //获取到设备的token
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    NSLog(@"deviceTokenerror");
+}
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    [APService registerDeviceToken:deviceToken];
+    NSLog(@"%@",deviceToken);
 }
 //在NSURLSessionDelegate出发前触发
 - (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler
