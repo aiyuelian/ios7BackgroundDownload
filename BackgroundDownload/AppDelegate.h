@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ViewController.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate,NSURLSessionDelegate,NSURLSessionDownloadDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong,nonatomic) NSMutableDictionary *completionHandlerDictionary;
+@property (strong,nonatomic) ViewController *rootViewController;
 
 @end

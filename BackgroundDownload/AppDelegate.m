@@ -7,19 +7,112 @@
 //
 
 #import "AppDelegate.h"
+#import "APService.h"
 
+typedef void(^CompletionType)();
 @implementation AppDelegate
 
+#pragma mark - 私有方法
+- (NSURLSession*)backgroundSession
+{
+    static NSURLSession *session = nil;
+    static dispatch_once_t flag;
+    dispatch_once(&flag,^{
+        NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration backgroundSessionConfiguration:@"identifer"];
+        session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+    });
+    return session;
+}
+- (void)addCompletionHandle :(void(^)())completionHandle :(NSString*)identifier
+{
+    if([self.completionHandlerDictionary objectForKey:identifier]){
+        NSLog(@"error");
+        return;
+    }
+    [self.completionHandlerDictionary setObject:completionHandle forKey:identifier];
+}
+- (void)callCompletionHandle :(NSString*)identifier
+{
+    if([self.completionHandlerDictionary objectForKey:identifier])
+    {
+        CompletionType handle = [self.completionHandlerDictionary objectForKey:identifier];
+        [self.completionHandlerDictionary removeObjectForKey:identifier];
+        handle();
+    }else
+    {
+        NSLog(@"error");
+    }
+}
+#pragma mark - NSURLSessionDownLoadDelegate
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
+didFinishDownloadingToURL:(NSURL *)location
+{
+    NSData *imageData = [NSData dataWithContentsOfURL:location];
+    UIImage *image = [UIImage imageWithData:imageData];
+    UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
+    [self.rootViewController.view addSubview:imageView];
+    NSLog(@"将image展现到了屏幕上");
+}
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
+      didWriteData:(int64_t)bytesWritten
+ totalBytesWritten:(int64_t)totalBytesWritten
+totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
+{
+    
+}
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
+ didResumeAtOffset:(int64_t)fileOffset
+expectedTotalBytes:(int64_t)expectedTotalBytes
+{
+    
+}
+#pragma mark - NSURLSessionDelegate
+- (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session
+{
+    NSLog(@"生成了快照");
+    [self callCompletionHandle:session.configuration.identifier];
+}
+
+
+
+#pragma mark - 系统的委托方法
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.rootViewController = [[ViewController alloc]init];
+    self.rootViewController.view.backgroundColor = [UIColor whiteColor];
+    self.window.rootViewController = self.rootViewController;
+    self.completionHandlerDictionary = [[NSMutableDictionary alloc]init];
+    [self.window makeKeyAndVisible];
+    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeAlert];
+    [APService setupWithOption:launchOptions];
     return YES;
+}
+//收到远程通知
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+        NSURL *url = [[NSURL alloc] initWithString:@"http://simg.cocoachina.com/201111220746561330.jpg"];
+    NSURLRequest *downRequest = [NSURLRequest requestWithURL:url];
+    NSURLSessionDownloadTask *task = [[self backgroundSession] downloadTaskWithRequest:downRequest];
+    [task resume];
+    NSLog(@"收到了远程通知");
+    completionHandler(UIBackgroundFetchResultNewData);
+}
+//获取到设备的token
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    [APService registerDeviceToken:deviceToken];
+}
+//在NSURLSessionDelegate出发前触发
+- (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler
+{
+    NSLog(@"保存了快照回调的块");
+    [self addCompletionHandle:completionHandler :identifier];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+   
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -35,7 +128,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+     [application enabledRemoteNotificationTypes];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
